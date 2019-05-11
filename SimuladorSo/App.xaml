@@ -1,0 +1,9 @@
+﻿<Application x:Class="SimuladorSo.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:SimuladorSo"
+             StartupUri="Views/WindowPrincipal.xaml">
+    <Application.Resources>
+         
+    </Application.Resources>
+</Application>

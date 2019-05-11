@@ -1,0 +1,41 @@
+﻿<Window x:Class="SimuladorSo.Views.WindowPrincipal"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SimuladorSo.Views"
+        mc:Ignorable="d"
+        Title="WindowPrincipal" Height="586" Width="832.5">
+    <Grid>
+        <GroupBox Header="Algoritmos de escalonamento" HorizontalAlignment="Left" Height="100" Margin="10,44,0,0" VerticalAlignment="Top" Width="317">
+            <Grid>
+                <RadioButton x:Name="rbtPrimeiroAChegar" Content="Não-preemptivo: Primeiro a chegar é servido (FCFS)" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" IsChecked="True"/>
+                <RadioButton x:Name="rbtJobMaisCurto" Content="Preemptivo:  Job mais curto primeiro (SJF)" HorizontalAlignment="Left" Margin="10,30,0,0" VerticalAlignment="Top"/>
+            </Grid>
+        </GroupBox>
+        <Label Content="Simulador de Sistema Operacional" Margin="10,10,10,0" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="14"/>
+        <GroupBox Header="Memória principal" HorizontalAlignment="Left" Height="384" Margin="10,149,0,0" VerticalAlignment="Top" Width="161">
+            <Grid>
+                <ListBox x:Name="lstMemoriaPrincipal" Margin="10"/>
+
+
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="CPU" HorizontalAlignment="Left" Height="159" Margin="176,149,0,0" VerticalAlignment="Top" Width="210"/>
+        <GroupBox Header="Área de Trabalho" Height="100" Margin="332,44,8,0" VerticalAlignment="Top">
+            <Grid>
+
+                <Button x:Name="btnAppChrome" Content="Chrome" HorizontalAlignment="Left" Margin="10,43,0,0" VerticalAlignment="Top" Width="100"/>
+                <Button x:Name="btnAppAdobeReader" Content="Adobe Reader" HorizontalAlignment="Left" Margin="120,43,0,0" VerticalAlignment="Top" Width="100"/>
+                <Button x:Name="btnAppWord" Content="Word" HorizontalAlignment="Left" Margin="230,43,0,0" VerticalAlignment="Top" Width="100"/>
+                <Button x:Name="btnAppPowerPoint" Content="Power Point" HorizontalAlignment="Left" Margin="340,43,0,0" VerticalAlignment="Top" Width="100"/>
+                <Button x:Name="btnAppVisualStudio" Content="Visual Studio" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="100" Height="20" Click="BtnAppVisualStudio_Click"/>
+                <Button x:Name="btnAppCmd" Content="CMD" HorizontalAlignment="Left" Margin="120,10,0,0" VerticalAlignment="Top" Width="100" Height="20"/>
+                <Button x:Name="btnAppNetflix" Content="Netflix" HorizontalAlignment="Left" Margin="230,10,0,0" VerticalAlignment="Top" Width="100" Height="20"/>
+                <Button x:Name="btnAppExcel" Content="Excel" HorizontalAlignment="Left" Margin="340,10,0,0" VerticalAlignment="Top" Width="100" Height="20"/>
+
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="MMU" HorizontalAlignment="Left" Height="159" Margin="171,313,0,0" VerticalAlignment="Top" Width="210"/>
+    </Grid>
+</Window>
