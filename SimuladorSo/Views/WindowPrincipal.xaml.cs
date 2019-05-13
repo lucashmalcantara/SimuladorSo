@@ -35,8 +35,7 @@ namespace SimuladorSo.Views
             var visualStudio = new ProcessoDto
             {
                 Nome = "Visual Studio",
-                //TamanhoMB = 128
-                TamanhoMB = 129
+                TamanhoMB = 125
             };
 
             _simuladorPresenter.Carregar(visualStudio);
