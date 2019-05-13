@@ -1,4 +1,5 @@
-﻿using SimuladorSo.Presenters;
+﻿using SimuladorSo.Dtos;
+using SimuladorSo.Presenters;
 using SimuladorSo.Views.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -31,8 +32,23 @@ namespace SimuladorSo.Views
         #region Aplicações
         private void BtnAppVisualStudio_Click(object sender, RoutedEventArgs e)
         {
-            _simuladorPresenter.
-        } 
+            var visualStudio = new ProcessoDto
+            {
+                Nome = "Visual Studio",
+                //TamanhoMB = 128
+                TamanhoMB = 129
+            };
+
+            _simuladorPresenter.Carregar(visualStudio);
+        }
         #endregion
+
+        public void ExibirProcessosMemoriaPrincipal(List<ProcessoDto> processos)
+        {
+            lstMemoriaPrincipal.Items.Clear();
+
+            foreach (var processo in processos)
+                lstMemoriaPrincipal.Items.Add(processo.ToString());
+        }
     }
 }

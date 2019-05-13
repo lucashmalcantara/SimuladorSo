@@ -1,4 +1,5 @@
 ﻿using SimuladorSo.Conversores;
+using SimuladorSo.Dtos;
 using SimuladorSo.Models;
 using SimuladorSo.Services;
 using SimuladorSo.Services.Interfaces;
@@ -17,29 +18,27 @@ namespace SimuladorSo.Presenters
 
         #region Services
         private ICpuService _cpuService;
+        private IMmuSerivce _mmuSerivce;
         private IRamService _ramService;
         #endregion
         public SimuladorPresenter(ISimuladorView simuladorView)
         {
             _simuladorView = simuladorView;
-            _cpuService = new CpuService();
-            _ramService = new RamService();
+            _ramService = new RamService(MmuService.TAMANHO_PAGINA_MB);
+            _mmuSerivce = new MmuService(_ramService);
+            _cpuService = new CpuService(_mmuSerivce);
         }
 
-        #region CPU
-        public void CarregarMemoria(Processo processo)
+        public void Carregar(ProcessoDto processo)
         {
-            _cpuService.CarregarMemoriaPrincipal(processo);
+            _cpuService.Carregar(processo.ConverterParaProcesso());
             ExibirProcessosMemoriaPrincipal();
         }
-        #endregion
 
-        #region Memória Principal
         private void ExibirProcessosMemoriaPrincipal()
         {
-            var processosExibicao = _ramService.RetornarTodosProcessos().ConverterParaProcessoDto();
-            _simuladorView.ExibirProcessosMemoriaPrincipal(processosExibicao);
+            var processoMemoriaPrincipal = _ramService.RetornarTodosProcessos();
+            _simuladorView.ExibirProcessosMemoriaPrincipal(processoMemoriaPrincipal.ConverterParaProcessoDto());
         }
-        #endregion
     }
 }

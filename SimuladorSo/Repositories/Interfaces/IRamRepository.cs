@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SimuladorSo.Services.Interfaces
+namespace SimuladorSo.Repositories.Interfaces
 {
-    public interface IRamService
+    public interface IRamRepository
     {
         string Alocar(Processo processo);
         List<Processo> RetornarTodosProcessos();

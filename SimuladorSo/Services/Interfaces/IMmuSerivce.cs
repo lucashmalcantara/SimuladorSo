@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace SimuladorSo.Services.Interfaces
 {
-    public interface ICpuService
+    public interface IMmuSerivce
     {
-        void Carregar(Processo processo);
+        void Alocar(Processo processo);
     }
 }

@@ -12,12 +12,32 @@ namespace SimuladorSo.Conversores
     {
         public static ProcessoDto ConverterParaProcessoDto(this Processo processo)
         {
-            throw new NotImplementedException();
+            return ConversorProcesso.Converter(processo);
         }
 
         public static List<ProcessoDto> ConverterParaProcessoDto(this List<Processo> processos)
         {
-            throw new NotImplementedException();
+            return ConversorProcesso.Converter(processos);
+        }
+
+        public static Processo ConverterParaProcesso(this ProcessoDto processo)
+        {
+            return ConversorProcesso.Converter(processo);
+        }
+
+        public static List<Processo> ConverterParaProcesso(this List<ProcessoDto> processos)
+        {
+            return ConversorProcesso.Converter(processos);
+        }
+
+        public static PaginaMemoriaDto ConverterParaPaginaMemoriaDto(this PaginaMemoria paginaMemoria)
+        {
+            return ConversorPaginaMemoria.Converter(paginaMemoria);
+        }
+
+        public static List<PaginaMemoriaDto> ConverterParaPaginaMemoriaDto(this List<PaginaMemoria> paginasMemoria)
+        {
+            return ConversorPaginaMemoria.Converter(paginasMemoria);
         }
     }
 }

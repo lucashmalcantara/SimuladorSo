@@ -10,19 +10,16 @@ namespace SimuladorSo.Services
 {
     public class CpuService : ICpuService
     {
-        public void CarregarMemoriaPrincipal(Processo processo)
+        private IMmuSerivce _mmuSerivce;
+        public CpuService(IMmuSerivce mmuSerivce)
         {
-            throw new NotImplementedException();
+            _mmuSerivce = mmuSerivce;
         }
 
-        public void Executar(ref Processo processo)
+        public void Carregar(Processo processo)
         {
-            throw new NotImplementedException();
-        }
-
-        public void Finalizar(Processo processo)
-        {
-            throw new NotImplementedException();
+            processo.EnderecoLogico = Guid.NewGuid().ToString();
+            _mmuSerivce.Alocar(processo);
         }
     }
 }

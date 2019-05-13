@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SimuladorSo.Views"
         mc:Ignorable="d"
-        Title="WindowPrincipal" Height="586" Width="832.5">
+        Title="WindowPrincipal" Height="687.124" Width="832.5">
     <Grid>
         <GroupBox Header="Algoritmos de escalonamento" HorizontalAlignment="Left" Height="100" Margin="10,44,0,0" VerticalAlignment="Top" Width="317">
             <Grid>
@@ -14,14 +14,14 @@
             </Grid>
         </GroupBox>
         <Label Content="Simulador de Sistema Operacional" Margin="10,10,10,0" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="14"/>
-        <GroupBox Header="Memória principal" HorizontalAlignment="Left" Height="384" Margin="10,149,0,0" VerticalAlignment="Top" Width="161">
+        <GroupBox Header="Memória principal" HorizontalAlignment="Left" Height="384" Margin="10,149,0,0" VerticalAlignment="Top" Width="319">
             <Grid>
                 <ListBox x:Name="lstMemoriaPrincipal" Margin="10"/>
 
 
             </Grid>
         </GroupBox>
-        <GroupBox Header="CPU" HorizontalAlignment="Left" Height="159" Margin="176,149,0,0" VerticalAlignment="Top" Width="210"/>
+        <GroupBox Header="CPU" HorizontalAlignment="Left" Height="160" Margin="337,149,0,0" VerticalAlignment="Top" Width="210"/>
         <GroupBox Header="Área de Trabalho" Height="100" Margin="332,44,8,0" VerticalAlignment="Top">
             <Grid>
 
@@ -36,6 +36,7 @@
 
             </Grid>
         </GroupBox>
-        <GroupBox Header="MMU" HorizontalAlignment="Left" Height="159" Margin="171,313,0,0" VerticalAlignment="Top" Width="210"/>
+        <GroupBox Header="MMU" HorizontalAlignment="Left" Height="158" Margin="338,315,0,0" VerticalAlignment="Top" Width="210"/>
+        <Button Content="Encerrar processo" HorizontalAlignment="Left" Margin="158,542,0,0" VerticalAlignment="Top" Width="107"/>
     </Grid>
 </Window>

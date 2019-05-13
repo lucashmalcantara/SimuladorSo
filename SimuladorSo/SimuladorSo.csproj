@@ -55,16 +55,20 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Conversores\ConversorPaginaMemoria.cs" />
     <Compile Include="Conversores\ConversorProcesso.cs" />
     <Compile Include="Conversores\MetodosExtensao.cs" />
+    <Compile Include="Dtos\PaginaMemoriaDto.cs" />
     <Compile Include="Dtos\ProcessoDto.cs" />
+    <Compile Include="Models\PaginaMemoria.cs" />
     <Compile Include="Models\Processo.cs" />
     <Compile Include="Presenters\SimuladorPresenter.cs" />
+    <Compile Include="Repositories\Interfaces\IRamRepository.cs" />
     <Compile Include="Repositories\RamRepository.cs" />
-    <Compile Include="Repositories\TlbRepository.cs" />
     <Compile Include="Services\CpuService.cs" />
     <Compile Include="Services\DispatcherService.cs" />
     <Compile Include="Services\Interfaces\ICpuService.cs" />
+    <Compile Include="Services\Interfaces\IMmuSerivce.cs" />
     <Compile Include="Services\Interfaces\IRamService.cs" />
     <Compile Include="Services\MmuService.cs" />
     <Compile Include="Services\RamService.cs" />
@@ -107,8 +111,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Repositories\Interfaces\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
