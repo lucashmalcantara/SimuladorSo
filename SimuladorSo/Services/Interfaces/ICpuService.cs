@@ -11,6 +11,5 @@ namespace SimuladorSo.Services.Interfaces
     {
         void Carregar(Processo processo);
         void Executar(ref Processo processo);
-        void SalvarContexto(Processo processo);
     }
 }

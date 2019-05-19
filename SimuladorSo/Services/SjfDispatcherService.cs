@@ -18,6 +18,10 @@ namespace SimuladorSo.Services
             _mmuService = mmuSerivce;
         }
 
+        public bool Preemptivo()
+        {
+            return true;
+        }
         public Processo RetornarProcesso()
         {
             var processos = _ramService.RetornarTodosProcessos();
@@ -27,7 +31,14 @@ namespace SimuladorSo.Services
                 return null;
 
             var enderecoFisico = _mmuService.RetornarEnderecoFisico(processoExecucao.EnderecoLogico);
-            return _ramService.Desalocar(enderecoFisico);
+            var processo =  _ramService.Desalocar(enderecoFisico);
+            _mmuService.RealizarSwapOut();
+            return processo;
+        }
+
+        public void SalvarContexto(Processo processo)
+        {
+            _mmuService.Alocar(processo);
         }
     }
 }

@@ -25,13 +25,13 @@ namespace SimuladorSo.Services
         public void Alocar(Processo processo)
         {
             if (_ramService.RetornarEspacoDisponivelMB() < processo.TamanhoEmMB)
-                RealizarSwap(processo.TamanhoEmMB);
+                RealizarSwapIn(processo.TamanhoEmMB);
 
             var enderecoFisico = _ramService.RetornarEnderecoFisicoDisponivel();
             _ramService.Alocar(enderecoFisico, processo);
         }
 
-        private void RealizarSwap(float tamanhoNecessarioMB)
+        private void RealizarSwapIn(float tamanhoNecessarioMB)
         {
             var processos = AplicarAlgoritmoLru(_ramService.RetornarTodosProcessos());
             var enderecosLogicosProcessos = new Queue<string>(processos.Select(p => p.EnderecoLogico));
@@ -58,6 +58,17 @@ namespace SimuladorSo.Services
             return posicoesMemoria
                 .Where(p => p.Value.EnderecoLogico.Equals(enderecoLogico))
                 .Select(p => p.Key).FirstOrDefault();
+        }
+
+        public void RealizarSwapOut()
+        {
+            var espacoNecessarioMB = _ssdService.RetornarEspacoNecessarioMB();
+
+            if (espacoNecessarioMB > 0 && _ramService.RetornarEspacoDisponivelMB() >= espacoNecessarioMB)
+            {
+                var processo = _ssdService.Desalocar();
+                Alocar(processo);
+            }
         }
     }
 }

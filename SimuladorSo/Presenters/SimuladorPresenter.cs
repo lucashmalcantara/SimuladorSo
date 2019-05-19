@@ -20,25 +20,52 @@ namespace SimuladorSo.Presenters
         private readonly ISimuladorView _simuladorView;
 
         #region Services
-        private ICpuService _cpuService;
-        private IMmuSerivce _mmuSerivce;
-        private IRamService _ramService;
-        private ISsdService _ssdService;
+        private readonly ICpuService _cpuService;
+        private readonly IMmuSerivce _mmuSerivce;
+        private readonly IRamService _ramService;
+        private readonly ISsdService _ssdService;
         private IDispatcherService _dispatcherService;
         #endregion
 
         private Timer _clock;
-        public SimuladorPresenter(ISimuladorView simuladorView)
+        private Processo processoExecucao;
+
+        public enum TipoEscalonamento
+        {
+            PrimeiroAChegar,
+            JobMaisCurto
+        }
+
+        public SimuladorPresenter(ISimuladorView simuladorView, TipoEscalonamento tipoEscalonamento)
         {
             _simuladorView = simuladorView;
             _ssdService = new SsdService();
             _ramService = new RamService(MmuService.TAMANHO_PAGINA_MB);
             _mmuSerivce = new MmuService(_ramService, _ssdService);
             _cpuService = new CpuService(_mmuSerivce, FREQUENCIA_CLOCK_SEGUNDOS);
-            _dispatcherService = new FcfsDispatcherService(_ramService, _mmuSerivce);
-
             ConfigurarTimer();
+            ConfigurarDispatcher(tipoEscalonamento);
+        }
+
+        public void IniciarExecucao()
+        {
+            _clock.Enabled = true;
             _clock.Start();
+        }
+
+        public void ConfigurarDispatcher(TipoEscalonamento tipoEscalonamento)
+        {
+            switch (tipoEscalonamento)
+            {
+                case TipoEscalonamento.PrimeiroAChegar:
+                    _dispatcherService = new FcfsDispatcherService(_ramService, _mmuSerivce);
+                    break;
+                case TipoEscalonamento.JobMaisCurto:
+                    _dispatcherService = new SjfDispatcherService(_ramService, _mmuSerivce);
+                    break;
+                default:
+                    throw new ArgumentException("Tipo de escalonamento inválido.", nameof(tipoEscalonamento));
+            }
         }
 
         private void ConfigurarTimer()
@@ -47,12 +74,23 @@ namespace SimuladorSo.Presenters
             _clock = new Timer();
             _clock.Elapsed += new ElapsedEventHandler(OnTimedEvent);
             _clock.Interval = fequenciaClockMilissegundos;
-            _clock.Enabled = true;
         }
 
         public void Carregar(ProcessoDto processo)
         {
-            _cpuService.Carregar(processo.ConverterParaProcesso());
+            var novoProcesso = processo.ConverterParaProcesso();
+            _cpuService.Carregar(novoProcesso);
+
+            // Preempção
+            if (_dispatcherService.Preemptivo() && processoExecucao != null)
+            {
+                _clock.Stop();
+                _dispatcherService.SalvarContexto(processoExecucao);
+                processoExecucao = null;
+                ExibirProcessoCpu();
+                _clock.Start();
+            }
+
             ExibirProcessosMemoriaPrincipal();
             ExibirProcessosMemoriaSecundaria();
         }
@@ -68,21 +106,28 @@ namespace SimuladorSo.Presenters
             var processoMemoriaSecundaria = _ssdService.RetornarTodosProcessos();
             _simuladorView.ExibirProcessosMemoriaSecundaria(processoMemoriaSecundaria.ConverterParaProcessoDto());
         }
-        private void ExibirProcessoCpu(Processo processo)
+        private void ExibirProcessoCpu()
         {
-            _simuladorView.ExibirProcessoCpu(processo.ConverterParaProcessoDto());
+            _simuladorView.ExibirProcessoCpu(processoExecucao.ConverterParaProcessoDto());
         }
 
         private void OnTimedEvent(object source, ElapsedEventArgs e)
         {
-            var processo = _dispatcherService.RetornarProcesso();
-
-            if (processo != null)
+            if (processoExecucao == null)
             {
-                _cpuService.Executar(ref processo);
-                _cpuService.SalvarContexto(processo);
-                ExibirProcessoCpu(processo);
+                processoExecucao = _dispatcherService.RetornarProcesso();
                 ExibirProcessosMemoriaPrincipal();
+                ExibirProcessosMemoriaSecundaria();
+            }
+
+            if (processoExecucao != null)
+            {
+                _cpuService.Executar(ref processoExecucao);
+
+                if (processoExecucao.DuracaoSurto == 0)
+                    processoExecucao = null;
+
+                ExibirProcessoCpu();
             }
         }
 

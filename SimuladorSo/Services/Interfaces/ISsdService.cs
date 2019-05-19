@@ -12,6 +12,7 @@ namespace SimuladorSo.Services.Interfaces
 {
     public interface ISsdService
     {
+        float RetornarEspacoNecessarioMB();
         void Alocar(Processo processo);
         Processo Desalocar();
         List<Processo> RetornarTodosProcessos();

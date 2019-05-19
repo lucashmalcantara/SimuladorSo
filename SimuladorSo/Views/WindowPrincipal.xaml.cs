@@ -27,7 +27,6 @@ namespace SimuladorSo.Views
         public WindowPrincipal()
         {
             InitializeComponent();
-            _simuladorPresenter = new SimuladorPresenter(this);
         }
 
         #region Aplicações
@@ -36,7 +35,8 @@ namespace SimuladorSo.Views
             var visualStudio = new ProcessoDto
             {
                 Nome = "Visual Studio",
-                TamanhoMB = 100,
+                //TamanhoMB = 100,
+                TamanhoMB = 400,
                 DuracaoSurto = 10
             };
 
@@ -49,7 +49,7 @@ namespace SimuladorSo.Views
             {
                 Nome = "Google Chrome",
                 TamanhoMB = 128,
-                DuracaoSurto = 10
+                DuracaoSurto = 6
             };
 
             _simuladorPresenter.Carregar(chrome);
@@ -154,11 +154,47 @@ namespace SimuladorSo.Views
         {
             Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
             {
-                txtProcessoCpu.Clear();
+                lstCpu.Items.Clear();
 
                 if (processo != null)
-                    txtProcessoCpu.Text = processo.ToString();
+                    lstCpu.Items.Add(processo.ToString());
             }));
+        }
+
+        private void BtnEncerrarProcesso_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void WinPrincipal_Loaded(object sender, RoutedEventArgs e)
+        {
+            InicializarSimuladorPresenter();
+        }
+
+        private void RbtPrimeiroAChegar_Checked(object sender, RoutedEventArgs e)
+        {
+            if (IsLoaded)
+                _simuladorPresenter.ConfigurarDispatcher(SimuladorPresenter.TipoEscalonamento.PrimeiroAChegar);
+        }
+
+        private void RbtJobMaisCurto_Checked(object sender, RoutedEventArgs e)
+        {
+            if (IsLoaded)
+                _simuladorPresenter.ConfigurarDispatcher(SimuladorPresenter.TipoEscalonamento.JobMaisCurto);
+        }
+
+        private void InicializarSimuladorPresenter()
+        {
+            SimuladorPresenter.TipoEscalonamento tipoEscalonamento;
+
+            if (rbtPrimeiroAChegar.IsChecked.Value)
+                tipoEscalonamento = SimuladorPresenter.TipoEscalonamento.PrimeiroAChegar;
+            else
+                tipoEscalonamento = SimuladorPresenter.TipoEscalonamento.JobMaisCurto;
+
+            _simuladorPresenter = new SimuladorPresenter(this, tipoEscalonamento);
+
+            _simuladorPresenter.IniciarExecucao();
         }
     }
 }

@@ -9,6 +9,7 @@ namespace SimuladorSo.Repositories.Interfaces
 {
     public interface ISsdRepository
     {
+        float RetornarEspacoNecessarioMB();
         void Alocar(Processo processo);
         Processo Desalocar();
         List<Processo> RetornarTodosProcessos();

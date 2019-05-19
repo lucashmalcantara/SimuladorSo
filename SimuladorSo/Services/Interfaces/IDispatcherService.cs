@@ -9,6 +9,8 @@ namespace SimuladorSo.Services.Interfaces
 {
     public interface IDispatcherService
     {
+        bool Preemptivo();
         Processo RetornarProcesso();
+        void SalvarContexto(Processo processo);
     }
 }

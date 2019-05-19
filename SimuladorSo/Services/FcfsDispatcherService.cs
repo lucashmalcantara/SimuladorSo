@@ -18,16 +18,28 @@ namespace SimuladorSo.Services
             _mmuService = mmuSerivce;
         }
 
+        public bool Preemptivo()
+        {
+            return false;
+        }
+
         public Processo RetornarProcesso()
         {
             var processos = _ramService.RetornarTodosProcessos();
-            var processoExecucao = processos.OrderBy(p => p.DuracaoSurto).FirstOrDefault();
+            var processoExecucao = processos.OrderBy(p => p.Chegada).FirstOrDefault();
 
             if (processoExecucao == null)
                 return null;
 
             var enderecoFisico = _mmuService.RetornarEnderecoFisico(processoExecucao.EnderecoLogico);
-            return _ramService.Desalocar(enderecoFisico);
+            var processo = _ramService.Desalocar(enderecoFisico);
+            _mmuService.RealizarSwapOut();
+            return processo;
+        }
+
+        public void SalvarContexto(Processo processo)
+        {
+            _mmuService.Alocar(processo);
         }
     }
 }

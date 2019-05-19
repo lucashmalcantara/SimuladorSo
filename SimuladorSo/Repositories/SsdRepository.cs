@@ -10,21 +10,32 @@ namespace SimuladorSo.Repositories
 {
     public class SsdRepository : ISsdRepository
     {
-        private Queue<Processo> _armazenamento = new Queue<Processo>();
+        private const int INDICE_DESALOCAMENTO = 0;
+        private List<Processo> _armazenamento = new List<Processo>();
 
         public void Alocar(Processo processo)
         {
-            _armazenamento.Enqueue(processo);
+            _armazenamento.Add(processo);
         }
 
         public Processo Desalocar()
         {
-            return _armazenamento.Dequeue();
+            var processo = _armazenamento[INDICE_DESALOCAMENTO];
+            _armazenamento.RemoveAt(INDICE_DESALOCAMENTO);
+            return processo;
+        }
+
+        public float RetornarEspacoNecessarioMB()
+        {
+            if (_armazenamento.Count == 0)
+                return 0f;
+
+            return _armazenamento[INDICE_DESALOCAMENTO].TamanhoEmMB;
         }
 
         public List<Processo> RetornarTodosProcessos()
         {
-            return _armazenamento.ToList();
+            return _armazenamento;
         }
     }
 }

@@ -11,5 +11,6 @@ namespace SimuladorSo.Services.Interfaces
     {
         void Alocar(Processo processo);
         string RetornarEnderecoFisico(string enderecoLogico);
+        void RealizarSwapOut();
     }
 }

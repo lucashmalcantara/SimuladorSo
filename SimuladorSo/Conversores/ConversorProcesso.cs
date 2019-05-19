@@ -12,12 +12,16 @@ namespace SimuladorSo.Conversores
     {
         public static ProcessoDto Converter(Processo processo)
         {
+            if (processo == null)
+                return null;
+
             return new ProcessoDto
             {
                 Nome = processo.Nome,
                 TamanhoMB = processo.TamanhoEmMB,
                 PaginasMemoria = processo.PaginasMemoria.ConverterParaPaginaMemoriaDto(),
-                DuracaoSurto = processo.DuracaoSurto
+                DuracaoSurto = processo.DuracaoSurto,
+                Chegada = processo.Chegada
             };
         }
 
@@ -28,6 +32,9 @@ namespace SimuladorSo.Conversores
 
         public static Processo Converter(ProcessoDto processo)
         {
+            if (processo == null)
+                return null;
+
             return new Processo
             {
                 Nome = processo.Nome,

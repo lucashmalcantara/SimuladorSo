@@ -11,10 +11,10 @@ namespace SimuladorSo.Services
     public class CpuService : ICpuService
     {
         private readonly int _frequenciaClockSegundos;
-        private readonly IMmuSerivce _mmuSerivce;
+        private readonly IMmuSerivce _mmuService;
         public CpuService(IMmuSerivce mmuSerivce, int frequenciaClockSegundos)
         {
-            _mmuSerivce = mmuSerivce;
+            _mmuService = mmuSerivce;
             _frequenciaClockSegundos = frequenciaClockSegundos;
         }
 
@@ -22,7 +22,7 @@ namespace SimuladorSo.Services
         {
             processo.EnderecoLogico = Guid.NewGuid().ToString();
             processo.Chegada = DateTime.Now;
-            _mmuSerivce.Alocar(processo);
+            _mmuService.Alocar(processo);
         }
 
         public void Executar(ref Processo processo)
@@ -31,11 +31,6 @@ namespace SimuladorSo.Services
 
             var surtoRestante = processo.DuracaoSurto - _frequenciaClockSegundos;
             processo.DuracaoSurto = surtoRestante < 0 ? 0 : surtoRestante;
-        }
-
-        public void SalvarContexto(Processo processo)
-        {
-            _mmuSerivce.Alocar(processo);
         }
     }
 }
