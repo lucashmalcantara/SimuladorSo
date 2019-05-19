@@ -18,7 +18,10 @@ namespace SimuladorSo.Dtos
             var informacoesProcesso = new StringBuilder();
             informacoesProcesso.AppendLine(Nome);
             informacoesProcesso.AppendLine($"Tamanho: {TamanhoMB}MB");
-            informacoesProcesso.AppendLine($"Quantidade páginas memória: {PaginasMemoria.Count} (total: {PaginasMemoria.Sum(p => p.TamanhoMB)}MB)");
+
+            if (PaginasMemoria != null)
+                informacoesProcesso.AppendLine($"Quantidade páginas memória: {PaginasMemoria.Count} (total: {PaginasMemoria.Sum(p => p.TamanhoMB)}MB)");
+
             return informacoesProcesso.ToString();
         }
     }

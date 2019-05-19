@@ -35,10 +35,87 @@ namespace SimuladorSo.Views
             var visualStudio = new ProcessoDto
             {
                 Nome = "Visual Studio",
-                TamanhoMB = 125
+                TamanhoMB = 100
             };
 
             _simuladorPresenter.Carregar(visualStudio);
+        }
+
+        private void BtnAppChrome_Click(object sender, RoutedEventArgs e)
+        {
+            var chrome = new ProcessoDto
+            {
+                Nome = "Google Chrome",
+                TamanhoMB = 128
+            };
+
+            _simuladorPresenter.Carregar(chrome);
+        }
+
+        private void BtnAppAdobeReader_Click(object sender, RoutedEventArgs e)
+        {
+            var adobeReader = new ProcessoDto
+            {
+                Nome = "Adobe Reader",
+                TamanhoMB = 50
+            };
+
+            _simuladorPresenter.Carregar(adobeReader);
+        }
+
+        private void BtnAppCmd_Click(object sender, RoutedEventArgs e)
+        {
+            var cmd = new ProcessoDto
+            {
+                Nome = "Prompt de Comando",
+                TamanhoMB = 8
+            };
+
+            _simuladorPresenter.Carregar(cmd);
+        }
+
+        private void BtnAppNetflix_Click(object sender, RoutedEventArgs e)
+        {
+            var netflix = new ProcessoDto
+            {
+                Nome = "Netflix",
+                TamanhoMB = 70
+            };
+
+            _simuladorPresenter.Carregar(netflix);
+        }
+
+        private void BtnAppWord_Click(object sender, RoutedEventArgs e)
+        {
+            var word = new ProcessoDto
+            {
+                Nome = "Microsoft Word",
+                TamanhoMB = 95
+            };
+
+            _simuladorPresenter.Carregar(word);
+        }
+
+        private void BtnAppExcel_Click(object sender, RoutedEventArgs e)
+        {
+            var excel = new ProcessoDto
+            {
+                Nome = "Microsoft Excel",
+                TamanhoMB = 113
+            };
+
+            _simuladorPresenter.Carregar(excel);
+        }
+
+        private void BtnAppPowerPoint_Click(object sender, RoutedEventArgs e)
+        {
+            var powerPoint = new ProcessoDto
+            {
+                Nome = "Microsoft PowerPoint",
+                TamanhoMB = 60
+            };
+
+            _simuladorPresenter.Carregar(powerPoint);
         }
         #endregion
 
@@ -48,6 +125,14 @@ namespace SimuladorSo.Views
 
             foreach (var processo in processos)
                 lstMemoriaPrincipal.Items.Add(processo.ToString());
+        }
+
+        public void ExibirProcessosMemoriaSecundaria(List<ProcessoDto> processos)
+        {
+            lstMemoriaSecundaria.Items.Clear();
+
+            foreach (var processo in processos)
+                lstMemoriaSecundaria.Items.Add(processo.ToString());
         }
     }
 }

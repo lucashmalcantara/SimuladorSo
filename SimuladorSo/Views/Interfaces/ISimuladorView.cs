@@ -10,5 +10,6 @@ namespace SimuladorSo.Views.Interfaces
     public interface ISimuladorView
     {
         void ExibirProcessosMemoriaPrincipal(List<ProcessoDto> processos);
+        void ExibirProcessosMemoriaSecundaria(List<ProcessoDto> processos);
     }
 }

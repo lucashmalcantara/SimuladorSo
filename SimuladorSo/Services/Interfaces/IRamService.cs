@@ -9,7 +9,11 @@ namespace SimuladorSo.Services.Interfaces
 {
     public interface IRamService
     {
-        string Alocar(Processo processo);
+        string Alocar(string enderecoFisico, Processo processo);
+        Processo Desalocar(string enderecoFisico);
         List<Processo> RetornarTodosProcessos();
+        float RetornarEspacoDisponivelMB();
+        string RetornarEnderecoFisicoDisponivel();
+        string RetornarEnderecoFisico(string enderecoLogico);
     }
 }

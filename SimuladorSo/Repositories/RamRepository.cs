@@ -12,7 +12,7 @@ namespace SimuladorSo.Repositories
     {
         private const float TAMANHO_TOTAL_MB = 1024;
 
-        private Dictionary<string, Processo> _posicaoMemoria = new Dictionary<string, Processo>();
+        private readonly Dictionary<string, Processo> _posicaoMemoria = new Dictionary<string, Processo>();
         private Stack<PaginaMemoria> _paginasDisponiveisMemoria;
 
         private readonly float _tamanhoPaginaMB;
@@ -31,7 +31,7 @@ namespace SimuladorSo.Repositories
                 _paginasDisponiveisMemoria.Push(new PaginaMemoria(_tamanhoPaginaMB));
         }
 
-        public string Alocar(Processo processo)
+        public string Alocar(string enderecoFisico, Processo processo)
         {
             int quantidadePaginasNecessarias = (int)Math.Ceiling(processo.TamanhoEmMB / _tamanhoPaginaMB);
 
@@ -40,7 +40,6 @@ namespace SimuladorSo.Repositories
 
             processo.PaginasMemoria = RetornarPaginas(quantidadePaginasNecessarias);
 
-            var enderecoFisico = Guid.NewGuid().ToString();
             _posicaoMemoria.Add(enderecoFisico, processo);
             return enderecoFisico;
         }
@@ -57,7 +56,36 @@ namespace SimuladorSo.Repositories
 
         public List<Processo> RetornarTodosProcessos()
         {
-            return _posicaoMemoria.Select(p => p.Value).ToList();
+            return _posicaoMemoria.Values.ToList();
+        }
+
+        public float RetornarEspacoDisponivelMB()
+        {
+            return _tamanhoPaginaMB * _paginasDisponiveisMemoria.Count;
+        }
+
+        public string RetornarEnderecoFisicoDisponivel()
+        {
+            return Guid.NewGuid().ToString();
+        }
+
+        public Processo Desalocar(string enderecoFisico)
+        {
+            var processo = _posicaoMemoria[enderecoFisico];
+            _posicaoMemoria.Remove(enderecoFisico);
+
+            foreach (var pagina in processo.PaginasMemoria)
+                _paginasDisponiveisMemoria.Push(pagina);
+
+            processo.PaginasMemoria = null;
+            return processo;
+        }
+
+        public string RetornarEnderecoFisico(string enderecoLogico)
+        {
+            return _posicaoMemoria
+                .Where(p => p.Value.EnderecoLogico.Equals(enderecoLogico))
+                .Select(p => p.Key).FirstOrDefault();
         }
     }
 }

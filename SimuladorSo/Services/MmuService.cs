@@ -14,17 +14,40 @@ namespace SimuladorSo.Services
     {
         public const float TAMANHO_PAGINA_MB = 8.0f;
 
-        private IRamService _ramService;
+        private readonly IRamService _ramService;
+        private readonly ISsdService _ssdService;
 
-        private readonly Dictionary<string, string> _tabelaPaginas = new Dictionary<string, string>();
-        public MmuService(IRamService ramService)
+        public MmuService(IRamService ramService, ISsdService ssdService)
         {
+            _ssdService = ssdService;
             _ramService = ramService;
         }
         public void Alocar(Processo processo)
         {
-            var enderecoFisico = _ramService.Alocar(processo);
-            _tabelaPaginas.Add(processo.EnderecoLogico, enderecoFisico);
+            if (_ramService.RetornarEspacoDisponivelMB() < processo.TamanhoEmMB)
+                RealizarSwap(processo.TamanhoEmMB);
+
+            var enderecoFisico = _ramService.RetornarEnderecoFisicoDisponivel();
+            _ramService.Alocar(enderecoFisico, processo);
+        }
+
+        private void RealizarSwap(float tamanhoNecessarioMB)
+        {
+            var processos = AplicarAlgoritmoLru(_ramService.RetornarTodosProcessos());
+            var enderecosLogicosProcessos = new Queue<string>(processos.Select(p => p.EnderecoLogico));
+
+            do
+            {
+                var enderecoLogico = enderecosLogicosProcessos.Dequeue();
+                var enderecoFisico = _ramService.RetornarEnderecoFisico(enderecoLogico);
+
+                var processo = _ramService.Desalocar(enderecoFisico);
+                _ssdService.Alocar(processo);
+            } while (_ramService.RetornarEspacoDisponivelMB() < tamanhoNecessarioMB);
+        }
+        private List<Processo> AplicarAlgoritmoLru(IEnumerable<Processo> processos)
+        {
+            return processos.OrderBy(p => p.UltimaExecucao).ToList();
         }
     }
 }

@@ -12,11 +12,17 @@ namespace SimuladorSo.Conversores
     {
         public static PaginaMemoriaDto Converter(PaginaMemoria paginaMemoria)
         {
+            if (paginaMemoria == null)
+                return null;
+
             return new PaginaMemoriaDto(paginaMemoria.TamanhoMB);
         }
 
         public static List<PaginaMemoriaDto> Converter(List<PaginaMemoria> paginaMemoria)
         {
+            if (paginaMemoria == null || paginaMemoria.Count == 0)
+                return null;
+
             return paginaMemoria.Select(p => Converter(p)).ToList();
         }
     }

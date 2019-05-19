@@ -18,14 +18,34 @@ namespace SimuladorSo.Services
             _ramRepository = new RamRepository(tamanhoPaginaMB);
         }
 
-        public string Alocar(Processo processo)
+        public string Alocar(string enderecoFisico, Processo processo)
         {
-            return _ramRepository.Alocar(processo);
+            return _ramRepository.Alocar(enderecoFisico, processo);
+        }
+
+        public float RetornarEspacoDisponivelMB()
+        {
+            return _ramRepository.RetornarEspacoDisponivelMB();
+        }
+
+        public string RetornarEnderecoFisicoDisponivel()
+        {
+            return _ramRepository.RetornarEnderecoFisicoDisponivel();
         }
 
         public List<Processo> RetornarTodosProcessos()
         {
             return _ramRepository.RetornarTodosProcessos();
+        }
+
+        public Processo Desalocar(string enderecoFisico)
+        {
+            return _ramRepository.Desalocar(enderecoFisico);
+        }
+
+        public string RetornarEnderecoFisico(string enderecoLogico)
+        {
+            return _ramRepository.RetornarEnderecoFisico(enderecoLogico);
         }
     }
 }

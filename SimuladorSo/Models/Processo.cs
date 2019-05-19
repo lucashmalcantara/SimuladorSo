@@ -14,5 +14,6 @@ namespace SimuladorSo.Models
         public float TamanhoEmMB { get; set; }
         public string EnderecoLogico { get; set; }
         public List<PaginaMemoria> PaginasMemoria { get; set; }
+        public DateTime UltimaExecucao { get; set; }
     }
 }
