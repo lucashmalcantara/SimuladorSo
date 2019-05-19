@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace SimuladorSo.Services.Interfaces
 {
-    public interface ICpuService
+    public interface IDispatcherService
     {
-        void Carregar(Processo processo);
-        void Executar(ref Processo processo);
-        void SalvarContexto(Processo processo);
+        Processo RetornarProcesso();
     }
 }

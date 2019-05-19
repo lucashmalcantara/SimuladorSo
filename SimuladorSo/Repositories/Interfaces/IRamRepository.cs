@@ -14,6 +14,6 @@ namespace SimuladorSo.Repositories.Interfaces
         List<Processo> RetornarTodosProcessos();
         float RetornarEspacoDisponivelMB();
         string RetornarEnderecoFisicoDisponivel();
-        string RetornarEnderecoFisico(string enderecoLogico);
+        Dictionary<string, Processo> RetornarPosicoesMemoria();
     }
 }

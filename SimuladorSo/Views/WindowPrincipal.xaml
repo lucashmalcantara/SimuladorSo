@@ -21,7 +21,9 @@
 
             </Grid>
         </GroupBox>
-        <GroupBox Header="CPU" HorizontalAlignment="Left" Height="160" Margin="662,148,0,0" VerticalAlignment="Top" Width="210"/>
+        <GroupBox Header="CPU" HorizontalAlignment="Left" Height="160" Margin="662,148,0,0" VerticalAlignment="Top" Width="210">
+            <TextBox x:Name="txtProcessoCpu" TextWrapping="Wrap" Text="" />
+        </GroupBox>
         <GroupBox Header="Área de Trabalho" Height="100" Margin="332,44,8,0" VerticalAlignment="Top">
             <Grid>
 

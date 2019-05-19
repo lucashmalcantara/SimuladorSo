@@ -16,7 +16,8 @@ namespace SimuladorSo.Conversores
             {
                 Nome = processo.Nome,
                 TamanhoMB = processo.TamanhoEmMB,
-                PaginasMemoria = processo.PaginasMemoria.ConverterParaPaginaMemoriaDto()
+                PaginasMemoria = processo.PaginasMemoria.ConverterParaPaginaMemoriaDto(),
+                DuracaoSurto = processo.DuracaoSurto
             };
         }
 
@@ -30,7 +31,8 @@ namespace SimuladorSo.Conversores
             return new Processo
             {
                 Nome = processo.Nome,
-                TamanhoEmMB = processo.TamanhoMB
+                TamanhoEmMB = processo.TamanhoMB,
+                DuracaoSurto = processo.DuracaoSurto
             };
         }
 

@@ -10,5 +10,6 @@ namespace SimuladorSo.Services.Interfaces
     public interface IMmuSerivce
     {
         void Alocar(Processo processo);
+        string RetornarEnderecoFisico(string enderecoLogico);
     }
 }

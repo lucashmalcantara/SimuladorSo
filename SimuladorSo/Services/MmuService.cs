@@ -39,15 +39,25 @@ namespace SimuladorSo.Services
             do
             {
                 var enderecoLogico = enderecosLogicosProcessos.Dequeue();
-                var enderecoFisico = _ramService.RetornarEnderecoFisico(enderecoLogico);
+                var enderecoFisico = RetornarEnderecoFisico(enderecoLogico);
 
                 var processo = _ramService.Desalocar(enderecoFisico);
                 _ssdService.Alocar(processo);
             } while (_ramService.RetornarEspacoDisponivelMB() < tamanhoNecessarioMB);
         }
+
         private List<Processo> AplicarAlgoritmoLru(IEnumerable<Processo> processos)
         {
             return processos.OrderBy(p => p.UltimaExecucao).ToList();
+        }
+
+        public string RetornarEnderecoFisico(string enderecoLogico)
+        {
+            var posicoesMemoria = _ramService.RetornarPosicoesMemoria();
+
+            return posicoesMemoria
+                .Where(p => p.Value.EnderecoLogico.Equals(enderecoLogico))
+                .Select(p => p.Key).FirstOrDefault();
         }
     }
 }

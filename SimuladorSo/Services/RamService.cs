@@ -43,9 +43,9 @@ namespace SimuladorSo.Services
             return _ramRepository.Desalocar(enderecoFisico);
         }
 
-        public string RetornarEnderecoFisico(string enderecoLogico)
+        Dictionary<string, Processo> IRamService.RetornarPosicoesMemoria()
         {
-            return _ramRepository.RetornarEnderecoFisico(enderecoLogico);
+            return _ramRepository.RetornarPosicoesMemoria();
         }
     }
 }

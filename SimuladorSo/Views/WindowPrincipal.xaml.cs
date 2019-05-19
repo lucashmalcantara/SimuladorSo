@@ -14,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace SimuladorSo.Views
 {
@@ -35,7 +36,8 @@ namespace SimuladorSo.Views
             var visualStudio = new ProcessoDto
             {
                 Nome = "Visual Studio",
-                TamanhoMB = 100
+                TamanhoMB = 100,
+                DuracaoSurto = 10
             };
 
             _simuladorPresenter.Carregar(visualStudio);
@@ -46,7 +48,8 @@ namespace SimuladorSo.Views
             var chrome = new ProcessoDto
             {
                 Nome = "Google Chrome",
-                TamanhoMB = 128
+                TamanhoMB = 128,
+                DuracaoSurto = 10
             };
 
             _simuladorPresenter.Carregar(chrome);
@@ -57,7 +60,8 @@ namespace SimuladorSo.Views
             var adobeReader = new ProcessoDto
             {
                 Nome = "Adobe Reader",
-                TamanhoMB = 50
+                TamanhoMB = 50,
+                DuracaoSurto = 10
             };
 
             _simuladorPresenter.Carregar(adobeReader);
@@ -68,7 +72,8 @@ namespace SimuladorSo.Views
             var cmd = new ProcessoDto
             {
                 Nome = "Prompt de Comando",
-                TamanhoMB = 8
+                TamanhoMB = 8,
+                DuracaoSurto = 10
             };
 
             _simuladorPresenter.Carregar(cmd);
@@ -79,7 +84,8 @@ namespace SimuladorSo.Views
             var netflix = new ProcessoDto
             {
                 Nome = "Netflix",
-                TamanhoMB = 70
+                TamanhoMB = 70,
+                DuracaoSurto = 10
             };
 
             _simuladorPresenter.Carregar(netflix);
@@ -90,7 +96,8 @@ namespace SimuladorSo.Views
             var word = new ProcessoDto
             {
                 Nome = "Microsoft Word",
-                TamanhoMB = 95
+                TamanhoMB = 95,
+                DuracaoSurto = 10
             };
 
             _simuladorPresenter.Carregar(word);
@@ -101,7 +108,8 @@ namespace SimuladorSo.Views
             var excel = new ProcessoDto
             {
                 Nome = "Microsoft Excel",
-                TamanhoMB = 113
+                TamanhoMB = 113,
+                DuracaoSurto = 10
             };
 
             _simuladorPresenter.Carregar(excel);
@@ -112,7 +120,8 @@ namespace SimuladorSo.Views
             var powerPoint = new ProcessoDto
             {
                 Nome = "Microsoft PowerPoint",
-                TamanhoMB = 60
+                TamanhoMB = 60,
+                DuracaoSurto = 10
             };
 
             _simuladorPresenter.Carregar(powerPoint);
@@ -121,18 +130,35 @@ namespace SimuladorSo.Views
 
         public void ExibirProcessosMemoriaPrincipal(List<ProcessoDto> processos)
         {
-            lstMemoriaPrincipal.Items.Clear();
+            Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
+            {
+                lstMemoriaPrincipal.Items.Clear();
 
-            foreach (var processo in processos)
-                lstMemoriaPrincipal.Items.Add(processo.ToString());
+                foreach (var processo in processos)
+                    lstMemoriaPrincipal.Items.Add(processo.ToString());
+            }));
         }
 
         public void ExibirProcessosMemoriaSecundaria(List<ProcessoDto> processos)
         {
-            lstMemoriaSecundaria.Items.Clear();
+            Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
+            {
+                lstMemoriaSecundaria.Items.Clear();
 
-            foreach (var processo in processos)
-                lstMemoriaSecundaria.Items.Add(processo.ToString());
+                foreach (var processo in processos)
+                    lstMemoriaSecundaria.Items.Add(processo.ToString());
+            }));
+        }
+
+        public void ExibirProcessoCpu(ProcessoDto processo)
+        {
+            Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
+            {
+                txtProcessoCpu.Clear();
+
+                if (processo != null)
+                    txtProcessoCpu.Text = processo.ToString();
+            }));
         }
     }
 }

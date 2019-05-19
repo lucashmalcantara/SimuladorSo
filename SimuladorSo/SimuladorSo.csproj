@@ -68,13 +68,15 @@
     <Compile Include="Repositories\RamRepository.cs" />
     <Compile Include="Repositories\SsdRepository.cs" />
     <Compile Include="Services\CpuService.cs" />
-    <Compile Include="Services\DispatcherService.cs" />
+    <Compile Include="Services\FcfsDispatcherService.cs" />
     <Compile Include="Services\Interfaces\ICpuService.cs" />
+    <Compile Include="Services\Interfaces\IDispatcherService.cs" />
     <Compile Include="Services\Interfaces\IMmuSerivce.cs" />
     <Compile Include="Services\Interfaces\IRamService.cs" />
     <Compile Include="Services\Interfaces\ISsdService.cs" />
     <Compile Include="Services\MmuService.cs" />
     <Compile Include="Services\RamService.cs" />
+    <Compile Include="Services\SjfDispatcherService.cs" />
     <Compile Include="Services\SsdService.cs" />
     <Compile Include="Views\Interfaces\ISimuladorView.cs" />
     <Compile Include="Views\WindowPrincipal.xaml.cs">

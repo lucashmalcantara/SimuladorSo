@@ -12,7 +12,7 @@ namespace SimuladorSo.Repositories
     {
         private const float TAMANHO_TOTAL_MB = 1024;
 
-        private readonly Dictionary<string, Processo> _posicaoMemoria = new Dictionary<string, Processo>();
+        private readonly Dictionary<string, Processo> _posicoesMemoria = new Dictionary<string, Processo>();
         private Stack<PaginaMemoria> _paginasDisponiveisMemoria;
 
         private readonly float _tamanhoPaginaMB;
@@ -40,7 +40,7 @@ namespace SimuladorSo.Repositories
 
             processo.PaginasMemoria = RetornarPaginas(quantidadePaginasNecessarias);
 
-            _posicaoMemoria.Add(enderecoFisico, processo);
+            _posicoesMemoria.Add(enderecoFisico, processo);
             return enderecoFisico;
         }
 
@@ -56,7 +56,7 @@ namespace SimuladorSo.Repositories
 
         public List<Processo> RetornarTodosProcessos()
         {
-            return _posicaoMemoria.Values.ToList();
+            return _posicoesMemoria.Values.ToList();
         }
 
         public float RetornarEspacoDisponivelMB()
@@ -71,8 +71,8 @@ namespace SimuladorSo.Repositories
 
         public Processo Desalocar(string enderecoFisico)
         {
-            var processo = _posicaoMemoria[enderecoFisico];
-            _posicaoMemoria.Remove(enderecoFisico);
+            var processo = _posicoesMemoria[enderecoFisico];
+            _posicoesMemoria.Remove(enderecoFisico);
 
             foreach (var pagina in processo.PaginasMemoria)
                 _paginasDisponiveisMemoria.Push(pagina);
@@ -81,11 +81,9 @@ namespace SimuladorSo.Repositories
             return processo;
         }
 
-        public string RetornarEnderecoFisico(string enderecoLogico)
+        public Dictionary<string, Processo> RetornarPosicoesMemoria()
         {
-            return _posicaoMemoria
-                .Where(p => p.Value.EnderecoLogico.Equals(enderecoLogico))
-                .Select(p => p.Key).FirstOrDefault();
+            return _posicoesMemoria;
         }
     }
 }
