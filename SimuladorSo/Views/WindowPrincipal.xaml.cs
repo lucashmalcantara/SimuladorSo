@@ -55,7 +55,7 @@ namespace SimuladorSo.Views
             {
                 Nome = "Visual Studio",
                 TamanhoMB = 100,
-                DuracaoSurto = 15
+                DuracaoSurto = 10
             };
 
             _simuladorPresenter.Carregar(visualStudio);
@@ -67,7 +67,7 @@ namespace SimuladorSo.Views
             {
                 Nome = "Google Chrome",
                 TamanhoMB = 128,
-                DuracaoSurto = 10
+                DuracaoSurto = 9
             };
 
             _simuladorPresenter.Carregar(chrome);
@@ -79,7 +79,7 @@ namespace SimuladorSo.Views
             {
                 Nome = "Adobe Reader",
                 TamanhoMB = 50,
-                DuracaoSurto = 9
+                DuracaoSurto = 8
             };
 
             _simuladorPresenter.Carregar(adobeReader);
@@ -91,7 +91,7 @@ namespace SimuladorSo.Views
             {
                 Nome = "Prompt de Comando",
                 TamanhoMB = 8,
-                DuracaoSurto = 8
+                DuracaoSurto = 7
             };
 
             _simuladorPresenter.Carregar(cmd);
@@ -103,7 +103,7 @@ namespace SimuladorSo.Views
             {
                 Nome = "Netflix",
                 TamanhoMB = 70,
-                DuracaoSurto = 7
+                DuracaoSurto = 6
             };
 
             _simuladorPresenter.Carregar(netflix);
@@ -115,7 +115,7 @@ namespace SimuladorSo.Views
             {
                 Nome = "Microsoft Word",
                 TamanhoMB = 95,
-                DuracaoSurto = 6
+                DuracaoSurto = 5
             };
 
             _simuladorPresenter.Carregar(word);
@@ -127,7 +127,7 @@ namespace SimuladorSo.Views
             {
                 Nome = "Microsoft Excel",
                 TamanhoMB = 113,
-                DuracaoSurto = 6
+                DuracaoSurto = 4
             };
 
             _simuladorPresenter.Carregar(excel);

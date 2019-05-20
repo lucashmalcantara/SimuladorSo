@@ -169,7 +169,5 @@ namespace SimuladorSo.Presenters
         {
             return processoExecucao != null && processoExecucao.EnderecoLogico.Equals(enderecoLogico);
         }
-
-        //private int tempoCompartilhadoSegundos = 3;
     }
 }

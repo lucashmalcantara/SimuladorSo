@@ -14,7 +14,7 @@
             </Grid>
         </GroupBox>
         <Label Content="Simulador de Sistema Operacional" Margin="10,10,10,0" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="14"/>
-        <GroupBox x:Name="gpbMemoriaPrincipal" Header="Memória RAM" HorizontalAlignment="Left" Height="384" Margin="337,146,0,0" VerticalAlignment="Top" Width="319">
+        <GroupBox x:Name="gpbMemoriaPrincipal" Header="Memória RAM (espaço do usuário)" HorizontalAlignment="Left" Height="384" Margin="337,146,0,0" VerticalAlignment="Top" Width="319">
             <Grid>
                 <ListBox x:Name="lstMemoriaPrincipal" Margin="10" MouseDoubleClick="LstMemoriaPrincipal_MouseDoubleClick"/>
             </Grid>
