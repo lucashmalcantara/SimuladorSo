@@ -15,5 +15,6 @@ namespace SimuladorSo.Services.Interfaces
         float RetornarEspacoDisponivelMB();
         string RetornarEnderecoFisicoDisponivel();
         Dictionary<string, Processo> RetornarPosicoesMemoria();
+        float RetornarEspacoReservadoSoMB();
     }
 }

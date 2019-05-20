@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SimuladorSo.Views"
         mc:Ignorable="d"
-        Title="WindowPrincipal" Height="581.124" Width="1037.633" Loaded="WinPrincipal_Loaded" ResizeMode="CanMinimize">
+        Title="WindowPrincipal" Height="693.124" Width="1037.633" Loaded="WinPrincipal_Loaded" ResizeMode="CanMinimize">
     <Grid>
         <GroupBox Header="Algoritmos de escalonamento" HorizontalAlignment="Left" Height="100" Margin="10,44,0,0" VerticalAlignment="Top" Width="317">
             <Grid>
@@ -14,7 +14,7 @@
             </Grid>
         </GroupBox>
         <Label Content="Simulador de Sistema Operacional" Margin="10,10,10,0" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="14"/>
-        <GroupBox Header="Memória principal" HorizontalAlignment="Left" Height="384" Margin="337,146,0,0" VerticalAlignment="Top" Width="319">
+        <GroupBox x:Name="gpbMemoriaPrincipal" Header="Memória RAM" HorizontalAlignment="Left" Height="384" Margin="337,146,0,0" VerticalAlignment="Top" Width="319">
             <Grid>
                 <ListBox x:Name="lstMemoriaPrincipal" Margin="10" MouseDoubleClick="LstMemoriaPrincipal_MouseDoubleClick"/>
             </Grid>
@@ -36,7 +36,7 @@
 
             </Grid>
         </GroupBox>
-        <GroupBox Header="Área de swap" HorizontalAlignment="Left" Height="382" Margin="9,146,0,0" VerticalAlignment="Top" Width="319">
+        <GroupBox Header="Área de swap" HorizontalAlignment="Left" Height="485" Margin="9,146,0,0" VerticalAlignment="Top" Width="319">
             <Grid>
                 <ListBox x:Name="lstMemoriaSecundaria" Margin="10" MouseDoubleClick="LstMemoriaSecundaria_MouseDoubleClick"/>
 
@@ -44,8 +44,17 @@
             </Grid>
         </GroupBox>
         <Label x:Name="lblInterrupcao" Content="Houve interrupçao!" HorizontalAlignment="Left" Margin="665,311,0,0" VerticalAlignment="Top" Visibility="Hidden"/>
-        <GroupBox Header="Instruções" Height="222" Margin="663,307,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="354">
+        <GroupBox Header="Instruções" Height="323" Margin="663,307,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="354">
             <TextBox x:Name="txtInstruções" Margin="10" TextWrapping="Wrap" Text="ESCOLHA DO ALGORITMO DE ESCALONAMENTO&#xD;&#xA;&#xD;&#xA;O algoritmo de escalonamento pode ser escolhido/alterado a qualquer momento. Basta realizar a alteração na seção &quot;Algoritmos de escalonamento&quot;.&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;EXECUTAR PROCESSOS&#xD;&#xA;&#xD;&#xA;Para executar um processo, clique sobre o botão com o nome do processo na seção &quot;Área de Trabalho&quot;.&#xD;&#xA;&#xD;&#xA;FINALIZAR PROCESSOS&#xD;&#xA;&#xD;&#xA;Para finalizar um processo, clique duas vezes sobre os detalhes do processo nas seções &quot;Área de Swap&quot;, &quot;Memória RAM&quot; ou &quot;CPU&quot;." IsReadOnly="True" VerticalScrollBarVisibility="Auto" />
+        </GroupBox>
+        <GroupBox Header="Detalhes RAM" HorizontalAlignment="Left" Height="100" Margin="339,534,0,0" VerticalAlignment="Top" Width="317">
+            <Grid>
+                <Label Content="Espaço reservado:" HorizontalAlignment="Left" Margin="10,8,0,0" VerticalAlignment="Top"/>
+                <Label Content="Espaço livre:" HorizontalAlignment="Left" Margin="10,31,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.467,0.808"/>
+                <Label x:Name="lblEspacoReservado" Content="0" HorizontalAlignment="Left" Margin="120,8,0,0" VerticalAlignment="Top"/>
+                <Label x:Name="lblEspacoLivre" Content="0" HorizontalAlignment="Left" Margin="120,31,0,0" VerticalAlignment="Top"/>
+
+            </Grid>
         </GroupBox>
     </Grid>
 </Window>

@@ -54,9 +54,8 @@ namespace SimuladorSo.Views
             var visualStudio = new ProcessoDto
             {
                 Nome = "Visual Studio",
-                //TamanhoMB = 100,
-                TamanhoMB = 400,
-                DuracaoSurto = 10
+                TamanhoMB = 100,
+                DuracaoSurto = 15
             };
 
             _simuladorPresenter.Carregar(visualStudio);
@@ -68,7 +67,7 @@ namespace SimuladorSo.Views
             {
                 Nome = "Google Chrome",
                 TamanhoMB = 128,
-                DuracaoSurto = 6
+                DuracaoSurto = 10
             };
 
             _simuladorPresenter.Carregar(chrome);
@@ -80,7 +79,7 @@ namespace SimuladorSo.Views
             {
                 Nome = "Adobe Reader",
                 TamanhoMB = 50,
-                DuracaoSurto = 10
+                DuracaoSurto = 9
             };
 
             _simuladorPresenter.Carregar(adobeReader);
@@ -92,7 +91,7 @@ namespace SimuladorSo.Views
             {
                 Nome = "Prompt de Comando",
                 TamanhoMB = 8,
-                DuracaoSurto = 10
+                DuracaoSurto = 8
             };
 
             _simuladorPresenter.Carregar(cmd);
@@ -104,7 +103,7 @@ namespace SimuladorSo.Views
             {
                 Nome = "Netflix",
                 TamanhoMB = 70,
-                DuracaoSurto = 10
+                DuracaoSurto = 7
             };
 
             _simuladorPresenter.Carregar(netflix);
@@ -116,7 +115,7 @@ namespace SimuladorSo.Views
             {
                 Nome = "Microsoft Word",
                 TamanhoMB = 95,
-                DuracaoSurto = 10
+                DuracaoSurto = 6
             };
 
             _simuladorPresenter.Carregar(word);
@@ -128,7 +127,7 @@ namespace SimuladorSo.Views
             {
                 Nome = "Microsoft Excel",
                 TamanhoMB = 113,
-                DuracaoSurto = 10
+                DuracaoSurto = 6
             };
 
             _simuladorPresenter.Carregar(excel);
@@ -140,7 +139,7 @@ namespace SimuladorSo.Views
             {
                 Nome = "Microsoft PowerPoint",
                 TamanhoMB = 60,
-                DuracaoSurto = 10
+                DuracaoSurto = 5
             };
 
             _simuladorPresenter.Carregar(powerPoint);
@@ -180,11 +179,6 @@ namespace SimuladorSo.Views
             }));
         }
 
-        private void BtnEncerrarProcesso_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void WinPrincipal_Loaded(object sender, RoutedEventArgs e)
         {
             InicializarSimuladorPresenter();
@@ -214,6 +208,23 @@ namespace SimuladorSo.Views
             _simuladorPresenter = new SimuladorPresenter(this, tipoEscalonamento);
 
             _simuladorPresenter.IniciarExecucao();
+        }
+
+        public void ExibirEspacoReservadoSo(float espacoMB)
+        {
+            Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
+            {
+                lblEspacoReservado.Content = $"{espacoMB}MB";
+            }));
+
+        }
+
+        public void ExibirEspacoLivre(float espacoMB)
+        {
+            Dispatcher.Invoke(DispatcherPriority.Normal, new Action(() =>
+            {
+                lblEspacoLivre.Content = $"{espacoMB}MB";
+            }));
         }
     }
 }

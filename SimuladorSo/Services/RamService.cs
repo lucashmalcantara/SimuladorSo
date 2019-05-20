@@ -13,9 +13,9 @@ namespace SimuladorSo.Services
     public class RamService : IRamService
     {
         private IRamRepository _ramRepository;
-        public RamService(float tamanhoPaginaMB)
+        public RamService(float tamanhoPaginaMB, float espacoReservadoSoMB)
         {
-            _ramRepository = new RamRepository(tamanhoPaginaMB);
+            _ramRepository = new RamRepository(tamanhoPaginaMB, espacoReservadoSoMB);
         }
 
         public string Alocar(string enderecoFisico, Processo processo)
@@ -46,6 +46,11 @@ namespace SimuladorSo.Services
         Dictionary<string, Processo> IRamService.RetornarPosicoesMemoria()
         {
             return _ramRepository.RetornarPosicoesMemoria();
+        }
+
+        public float RetornarEspacoReservadoSoMB()
+        {
+            return _ramRepository.RetornarEspacoReservadoSoMB();
         }
     }
 }

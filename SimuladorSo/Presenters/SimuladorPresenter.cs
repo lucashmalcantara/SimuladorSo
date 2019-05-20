@@ -15,6 +15,7 @@ namespace SimuladorSo.Presenters
 {
     public class SimuladorPresenter
     {
+        private const float ESPACO_RESERVADO_SO_MB = 50;
         private const int FREQUENCIA_CLOCK_SEGUNDOS = 1;
 
         private readonly ISimuladorView _simuladorView;
@@ -40,11 +41,12 @@ namespace SimuladorSo.Presenters
         {
             _simuladorView = simuladorView;
             _ssdService = new SsdService();
-            _ramService = new RamService(MmuService.TAMANHO_PAGINA_MB);
+            _ramService = new RamService(MmuService.TAMANHO_PAGINA_MB, ESPACO_RESERVADO_SO_MB);
             _mmuSerivce = new MmuService(_ramService, _ssdService);
             _cpuService = new CpuService(_mmuSerivce, FREQUENCIA_CLOCK_SEGUNDOS);
             ConfigurarTimer();
             ConfigurarDispatcher(tipoEscalonamento);
+            _simuladorView.ExibirEspacoReservadoSo(_ramService.RetornarEspacoReservadoSoMB());
         }
 
         public void IniciarExecucao()
@@ -91,7 +93,13 @@ namespace SimuladorSo.Presenters
             }
 
             ExibirProcessosMemoriaPrincipal();
+            ExibirEspacoLivreMemoriaPrincipal();
             ExibirProcessosMemoriaSecundaria();
+        }
+
+        private void ExibirEspacoLivreMemoriaPrincipal()
+        {
+            _simuladorView.ExibirEspacoLivre(_ramService.RetornarEspacoDisponivelMB());
         }
 
         private void ExibirProcessosMemoriaPrincipal()
@@ -116,6 +124,7 @@ namespace SimuladorSo.Presenters
             {
                 processoExecucao = _dispatcherService.RetornarProcesso();
                 ExibirProcessosMemoriaPrincipal();
+                ExibirEspacoLivreMemoriaPrincipal();
                 ExibirProcessosMemoriaSecundaria();
             }
 
@@ -143,6 +152,7 @@ namespace SimuladorSo.Presenters
             _clock.Stop();
             _mmuSerivce.AbortarProcesso(enderecoLogico);
             ExibirProcessosMemoriaPrincipal();
+            ExibirEspacoLivreMemoriaPrincipal();
             ExibirProcessosMemoriaSecundaria();
             _clock.Start();
         }

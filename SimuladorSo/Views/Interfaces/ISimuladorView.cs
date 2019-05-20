@@ -12,5 +12,8 @@ namespace SimuladorSo.Views.Interfaces
         void ExibirProcessosMemoriaPrincipal(List<ProcessoDto> processos);
         void ExibirProcessosMemoriaSecundaria(List<ProcessoDto> processos);
         void ExibirProcessoCpu(ProcessoDto processo);
+
+        void ExibirEspacoReservadoSo(float espacoMB);
+        void ExibirEspacoLivre(float espacoMB);
     }
 }

@@ -14,12 +14,16 @@ namespace SimuladorSo.Repositories
 
         private readonly Dictionary<string, Processo> _posicoesMemoria = new Dictionary<string, Processo>();
         private Stack<PaginaMemoria> _paginasDisponiveisMemoria;
+        private Stack<PaginaMemoria> _paginasReservadasMemoria;
 
         private readonly float _tamanhoPaginaMB;
-        public RamRepository(float tamanhoPaginaMB)
+        public RamRepository(float tamanhoPaginaMB, float espacoReservadoSoMB)
         {
             _tamanhoPaginaMB = tamanhoPaginaMB;
             PopularPaginas();
+
+            var quantidadePaginasSo = RetornarQuantidadePaginasNecessarias(espacoReservadoSoMB);
+            _paginasReservadasMemoria = new Stack<PaginaMemoria>(RetornarPaginas(quantidadePaginasSo));
         }
 
         private void PopularPaginas()
@@ -33,7 +37,7 @@ namespace SimuladorSo.Repositories
 
         public string Alocar(string enderecoFisico, Processo processo)
         {
-            int quantidadePaginasNecessarias = (int)Math.Ceiling(processo.TamanhoEmMB / _tamanhoPaginaMB);
+            int quantidadePaginasNecessarias = RetornarQuantidadePaginasNecessarias(processo.TamanhoEmMB);
 
             if (quantidadePaginasNecessarias > _paginasDisponiveisMemoria.Count)
                 throw new OutOfMemoryException("Não foi possível alocar o processo, pois a memória principal está cheia.");
@@ -42,6 +46,11 @@ namespace SimuladorSo.Repositories
 
             _posicoesMemoria.Add(enderecoFisico, processo);
             return enderecoFisico;
+        }
+
+        private int RetornarQuantidadePaginasNecessarias(float tamanhoMB)
+        {
+            return (int)Math.Ceiling(tamanhoMB / _tamanhoPaginaMB);
         }
 
         private List<PaginaMemoria> RetornarPaginas(int quantidadePaginasNecessarias)
@@ -84,6 +93,11 @@ namespace SimuladorSo.Repositories
         public Dictionary<string, Processo> RetornarPosicoesMemoria()
         {
             return _posicoesMemoria;
+        }
+
+        public float RetornarEspacoReservadoSoMB()
+        {
+            return _paginasReservadasMemoria.Sum(p => p.TamanhoMB);
         }
     }
 }
