@@ -10,7 +10,7 @@ namespace SimuladorSo.Repositories
 {
     public class SsdRepository : ISsdRepository
     {
-        private const int INDICE_DESALOCAMENTO = 0;
+        private const int INDICE_SWAP_OUT = 0;
         private List<Processo> _armazenamento = new List<Processo>();
 
         public void Alocar(Processo processo)
@@ -20,8 +20,15 @@ namespace SimuladorSo.Repositories
 
         public Processo Desalocar()
         {
-            var processo = _armazenamento[INDICE_DESALOCAMENTO];
-            _armazenamento.RemoveAt(INDICE_DESALOCAMENTO);
+            var processo = _armazenamento[INDICE_SWAP_OUT];
+            _armazenamento.RemoveAt(INDICE_SWAP_OUT);
+            return processo;
+        }
+
+        public Processo Desalocar(string enderecoLogico)
+        {
+            var processo = _armazenamento.Find(p => p.EnderecoLogico.Equals(enderecoLogico));
+            _armazenamento.Remove(processo);
             return processo;
         }
 
@@ -30,7 +37,7 @@ namespace SimuladorSo.Repositories
             if (_armazenamento.Count == 0)
                 return 0f;
 
-            return _armazenamento[INDICE_DESALOCAMENTO].TamanhoEmMB;
+            return _armazenamento[INDICE_SWAP_OUT].TamanhoEmMB;
         }
 
         public List<Processo> RetornarTodosProcessos()

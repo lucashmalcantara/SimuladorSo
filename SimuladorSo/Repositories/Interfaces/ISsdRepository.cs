@@ -12,6 +12,7 @@ namespace SimuladorSo.Repositories.Interfaces
         float RetornarEspacoNecessarioMB();
         void Alocar(Processo processo);
         Processo Desalocar();
+        Processo Desalocar(string enderecoLogico);
         List<Processo> RetornarTodosProcessos();
     }
 }

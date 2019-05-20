@@ -17,6 +17,7 @@ namespace SimuladorSo.Conversores
 
             return new ProcessoDto
             {
+                EnderecoLogico = processo.EnderecoLogico,
                 Nome = processo.Nome,
                 TamanhoMB = processo.TamanhoEmMB,
                 PaginasMemoria = processo.PaginasMemoria.ConverterParaPaginaMemoriaDto(),
@@ -37,6 +38,7 @@ namespace SimuladorSo.Conversores
 
             return new Processo
             {
+                EnderecoLogico = processo.EnderecoLogico,
                 Nome = processo.Nome,
                 TamanhoEmMB = processo.TamanhoMB,
                 DuracaoSurto = processo.DuracaoSurto

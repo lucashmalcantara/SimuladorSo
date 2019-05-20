@@ -24,6 +24,11 @@ namespace SimuladorSo.Services
             return _ssdRepository.Desalocar();
         }
 
+        public Processo Desalocar(string enderecoLogico)
+        {
+            return _ssdRepository.Desalocar(enderecoLogico);
+        }
+
         public float RetornarEspacoNecessarioMB()
         {
             return _ssdRepository.RetornarEspacoNecessarioMB();

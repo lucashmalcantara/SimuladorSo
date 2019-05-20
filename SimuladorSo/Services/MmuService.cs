@@ -39,7 +39,7 @@ namespace SimuladorSo.Services
             do
             {
                 var enderecoLogico = enderecosLogicosProcessos.Dequeue();
-                var enderecoFisico = RetornarEnderecoFisico(enderecoLogico);
+                var enderecoFisico = RetornarEnderecoFisicoMemoriaPrincipal(enderecoLogico);
 
                 var processo = _ramService.Desalocar(enderecoFisico);
                 _ssdService.Alocar(processo);
@@ -51,7 +51,7 @@ namespace SimuladorSo.Services
             return processos.OrderBy(p => p.UltimaExecucao).ToList();
         }
 
-        public string RetornarEnderecoFisico(string enderecoLogico)
+        public string RetornarEnderecoFisicoMemoriaPrincipal(string enderecoLogico)
         {
             var posicoesMemoria = _ramService.RetornarPosicoesMemoria();
 
@@ -69,6 +69,32 @@ namespace SimuladorSo.Services
                 var processo = _ssdService.Desalocar();
                 Alocar(processo);
             }
+        }
+
+        public void AbortarProcesso(string enderecoLogico)
+        {
+            var enderecoFisicoMemoriaPrincipal = RetornarEnderecoFisicoMemoriaPrincipal(enderecoLogico);
+
+            if (enderecoFisicoMemoriaPrincipal != null)
+                AbortarProcessoMemoriaPrincipal(enderecoLogico);
+            else
+                AbortarProcessoMemoriaSecundaria(enderecoLogico);
+        }
+
+        private void AbortarProcessoMemoriaSecundaria(string enderecoLogico)
+        {
+            _ssdService.Desalocar(enderecoLogico);
+        }
+
+        private void AbortarProcessoMemoriaPrincipal(string enderecoLogico)
+        {
+            var enderecoFisico = RetornarEnderecoFisicoMemoriaPrincipal(enderecoLogico);
+            _ramService.Desalocar(enderecoFisico);
+        }
+
+        private bool ProcessoEstaMemoriaSecundaria(string enderecoLogico)
+        {
+            return _ssdService.RetornarTodosProcessos().Exists(p => p.EnderecoLogico.Equals(enderecoLogico));
         }
     }
 }

@@ -8,6 +8,7 @@ namespace SimuladorSo.Dtos
 {
     public class ProcessoDto
     {
+        public string EnderecoLogico { get; set; }
         public string Nome { get; set; }
         public float TamanhoMB { get; set; }
         public List<PaginaMemoriaDto> PaginasMemoria { get; set; }

@@ -30,7 +30,7 @@ namespace SimuladorSo.Services
             if (processoExecucao == null)
                 return null;
 
-            var enderecoFisico = _mmuService.RetornarEnderecoFisico(processoExecucao.EnderecoLogico);
+            var enderecoFisico = _mmuService.RetornarEnderecoFisicoMemoriaPrincipal(processoExecucao.EnderecoLogico);
             var processo =  _ramService.Desalocar(enderecoFisico);
             _mmuService.RealizarSwapOut();
             return processo;

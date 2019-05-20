@@ -81,7 +81,6 @@ namespace SimuladorSo.Presenters
             var novoProcesso = processo.ConverterParaProcesso();
             _cpuService.Carregar(novoProcesso);
 
-            // Preempção
             if (_dispatcherService.Preemptivo() && processoExecucao != null)
             {
                 _clock.Stop();
@@ -129,6 +128,36 @@ namespace SimuladorSo.Presenters
 
                 ExibirProcessoCpu();
             }
+        }
+
+        public void FinalizarProcesso(string enderecoLogico)
+        {
+            if (EstaEmExecucao(enderecoLogico))
+                AbortarProcessoCpu();
+
+            AbortarProcessoViaMmu(enderecoLogico);
+        }
+
+        private void AbortarProcessoViaMmu(string enderecoLogico)
+        {
+            _clock.Stop();
+            _mmuSerivce.AbortarProcesso(enderecoLogico);
+            ExibirProcessosMemoriaPrincipal();
+            ExibirProcessosMemoriaSecundaria();
+            _clock.Start();
+        }
+
+        private void AbortarProcessoCpu()
+        {
+            _clock.Stop();
+            processoExecucao = null;
+            ExibirProcessoCpu();
+            _clock.Start();
+        }
+
+        private bool EstaEmExecucao(string enderecoLogico)
+        {
+            return processoExecucao != null && processoExecucao.EnderecoLogico.Equals(enderecoLogico);
         }
 
         //private int tempoCompartilhadoSegundos = 3;

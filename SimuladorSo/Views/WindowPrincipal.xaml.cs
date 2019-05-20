@@ -27,6 +27,25 @@ namespace SimuladorSo.Views
         public WindowPrincipal()
         {
             InitializeComponent();
+            //ConfigurarClickProcessos();
+        }
+
+        private void LstMemoriaSecundaria_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var processo = (ProcessoDto)lstMemoriaSecundaria.SelectedItem;
+            _simuladorPresenter.FinalizarProcesso(processo.EnderecoLogico);
+        }
+
+        private void LstMemoriaPrincipal_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var processo = (ProcessoDto)lstMemoriaPrincipal.SelectedItem;
+            _simuladorPresenter.FinalizarProcesso(processo.EnderecoLogico);
+        }
+
+        private void LstCpu_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var processo = (ProcessoDto)lstCpu.SelectedItem;
+            _simuladorPresenter.FinalizarProcesso(processo.EnderecoLogico);
         }
 
         #region Aplicações
@@ -135,7 +154,7 @@ namespace SimuladorSo.Views
                 lstMemoriaPrincipal.Items.Clear();
 
                 foreach (var processo in processos)
-                    lstMemoriaPrincipal.Items.Add(processo.ToString());
+                    lstMemoriaPrincipal.Items.Add(processo);
             }));
         }
 
@@ -146,7 +165,7 @@ namespace SimuladorSo.Views
                 lstMemoriaSecundaria.Items.Clear();
 
                 foreach (var processo in processos)
-                    lstMemoriaSecundaria.Items.Add(processo.ToString());
+                    lstMemoriaSecundaria.Items.Add(processo);
             }));
         }
 
@@ -157,7 +176,7 @@ namespace SimuladorSo.Views
                 lstCpu.Items.Clear();
 
                 if (processo != null)
-                    lstCpu.Items.Add(processo.ToString());
+                    lstCpu.Items.Add(processo);
             }));
         }
 
