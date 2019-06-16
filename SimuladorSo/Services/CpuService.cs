@@ -10,19 +10,27 @@ namespace SimuladorSo.Services
 {
     public class CpuService : ICpuService
     {
-        public void CarregarMemoriaPrincipal(Processo processo)
+        private readonly int _frequenciaClockSegundos;
+        private readonly IMmuSerivce _mmuService;
+        public CpuService(IMmuSerivce mmuSerivce, int frequenciaClockSegundos)
         {
-            throw new NotImplementedException();
+            _mmuService = mmuSerivce;
+            _frequenciaClockSegundos = frequenciaClockSegundos;
+        }
+
+        public void Carregar(Processo processo)
+        {
+            processo.EnderecoLogico = Guid.NewGuid().ToString();
+            processo.Chegada = DateTime.Now;
+            _mmuService.Alocar(processo);
         }
 
         public void Executar(ref Processo processo)
         {
-            throw new NotImplementedException();
-        }
+            processo.UltimaExecucao = DateTime.Now;
 
-        public void Finalizar(Processo processo)
-        {
-            throw new NotImplementedException();
+            var surtoRestante = processo.DuracaoSurto - _frequenciaClockSegundos;
+            processo.DuracaoSurto = surtoRestante < 0 ? 0 : surtoRestante;
         }
     }
 }

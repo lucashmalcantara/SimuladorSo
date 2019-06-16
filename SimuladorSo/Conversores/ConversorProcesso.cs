@@ -12,12 +12,42 @@ namespace SimuladorSo.Conversores
     {
         public static ProcessoDto Converter(Processo processo)
         {
-            throw new NotImplementedException();
+            if (processo == null)
+                return null;
+
+            return new ProcessoDto
+            {
+                EnderecoLogico = processo.EnderecoLogico,
+                Nome = processo.Nome,
+                TamanhoMB = processo.TamanhoEmMB,
+                PaginasMemoria = processo.PaginasMemoria.ConverterParaPaginaMemoriaDto(),
+                DuracaoSurto = processo.DuracaoSurto,
+                Chegada = processo.Chegada
+            };
         }
 
-        public static List<ProcessoDto> Converter(List<Processo> processos)
+        public static List<ProcessoDto> Converter(IEnumerable<Processo> processos)
         {
-            throw new NotImplementedException();
+            return processos.Select(p => Converter(p)).ToList();
+        }
+
+        public static Processo Converter(ProcessoDto processo)
+        {
+            if (processo == null)
+                return null;
+
+            return new Processo
+            {
+                EnderecoLogico = processo.EnderecoLogico,
+                Nome = processo.Nome,
+                TamanhoEmMB = processo.TamanhoMB,
+                DuracaoSurto = processo.DuracaoSurto
+            };
+        }
+
+        public static List<Processo> Converter(IEnumerable<ProcessoDto> processos)
+        {
+            return processos.Select(p => Converter(p)).ToList();
         }
     }
 }
